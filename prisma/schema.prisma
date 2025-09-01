@@ -14,18 +14,6 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-
-    createdBy   User   @relation(fields: [createdById], references: [id])
-    createdById String
-
-    @@index([name])
-}
-
 // Necessary for Next auth
 model Account {
     id                       String  @id @default(cuid())
@@ -55,14 +43,16 @@ model Session {
 }
 
 model User {
-    id            String    @id @default(cuid())
+    id            String     @id @default(cuid())
     name          String?
-    email         String?   @unique
+    email         String?    @unique
+    passwordHash  String?
     emailVerified DateTime?
     image         String?
+    role          String     @default("viewer")
     accounts      Account[]
     sessions      Session[]
-    posts         Post[]
+    AuditLogs     AuditLog[]
 }
 
 model VerificationToken {
@@ -71,4 +61,174 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+//Others
+
+// Métier
+model Profile {
+    id String @id @default("profile")
+
+    fullName  String
+    headline  String?
+    location  String?
+    website   String?
+    email     String?
+    phone     String?
+    aboutMd   String?
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Skill {
+    id String @id @default(cuid())
+
+    name       String
+    level      String?
+    orderIndex Int      @default(0)
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+
+    Experiences Experience[]     @relation("AquiredInExperience")
+    Educations  Education[]      @relation("AquiredInEducation")
+    Projects    Project[]        @relation("AquiredInProject")
+    CVs         CvVersionSkill[]
+}
+
+model Education {
+    id String @id @default(cuid())
+
+    school     String
+    degree     String?
+    startDate  DateTime?
+    endDate    DateTime?
+    detailsMd  String?
+    orderIndex Int       @default(0)
+    createdAt  DateTime  @default(now())
+    updatedAt  DateTime  @updatedAt
+
+    Skills Skill[] @relation("AquiredInEducation")
+
+    CVs CvVersionEducation[]
+}
+
+model Experience {
+    id String @id @default(cuid())
+
+    company    String
+    companyUrl String?
+    role       String
+    startDate  DateTime?
+    endDate    DateTime?
+    location   String?
+    summaryMd  String?
+
+    orderIndex Int      @default(0)
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+
+    CVs CvVersionExperience[]
+
+    Skills Skill[] @relation("AquiredInExperience")
+}
+
+model Project {
+    id String @id @default(cuid())
+
+    name      String
+    summaryMd String?
+    url       String?
+    repoUrl   String?
+
+    orderIndex Int      @default(0)
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+
+    CVs    CvVersionProject[]
+    Skills Skill[]            @relation("AquiredInProject")
+}
+
+model CvVersion {
+    id String @id @default(cuid())
+
+    title        String
+    slug         String   @unique
+    theme        String   @default("modern")
+    sectionOrder Json
+    createdAt    DateTime @default(now())
+    updatedAt    DateTime @updatedAt
+
+    Experiences CvVersionExperience[]
+    Projects    CvVersionProject[]
+    Skills      CvVersionSkill[]
+    Educations  CvVersionEducation[]
+}
+
+model CvVersionExperience {
+    cvId         String
+    experienceId String
+    CV           CvVersion  @relation(fields: [cvId], references: [id], onDelete: Cascade)
+    experience   Experience @relation(fields: [experienceId], references: [id], onDelete: Cascade)
+
+    @@id([cvId, experienceId])
+}
+
+model CvVersionProject {
+    cvId      String
+    projectId String
+    CV        CvVersion @relation(fields: [cvId], references: [id], onDelete: Cascade)
+    project   Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+    @@id([cvId, projectId])
+}
+
+model CvVersionSkill {
+    cvId    String
+    skillId String
+    CV      CvVersion @relation(fields: [cvId], references: [id], onDelete: Cascade)
+    Skill   Skill     @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+    @@id([cvId, skillId])
+}
+
+model CvVersionEducation {
+    cvId        String
+    educationId String
+    CV          CvVersion @relation(fields: [cvId], references: [id], onDelete: Cascade)
+    Education   Education @relation(fields: [educationId], references: [id], onDelete: Cascade)
+
+    @@id([cvId, educationId])
+}
+
+// The AuditLog model tracks changes to various entities in the system.
+// It records the action taken, the target entity, and metadata about the change.
+model AuditLog {
+    id String @id @default(cuid())
+
+    action     AuditAction
+    targetType AuditTargetType
+    targetId   String?
+    meta       Json?
+    createdAt  DateTime        @default(now())
+
+    authorId String?
+    Author   User?   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+}
+
+enum AuditAction {
+    CREATE
+    READ
+    UPDATE
+    DELETE
+}
+
+// Adapt this enum to include all target types
+enum AuditTargetType {
+    USER
+    PROFILE
+    SKILL
+    EDUCATION
+    EXPERIENCE
+    PROJECT
+    CV
 }
