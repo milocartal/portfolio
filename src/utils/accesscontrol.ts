@@ -16,6 +16,8 @@ ac.grant("viewer")
 
 //Admin
 ac.grant("admin")
+  .readAny("admin")
+
   .readAny("user")
   .createAny("user")
   .updateAny("user")

@@ -1,5 +1,6 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
+import { educationSchema } from "~/lib/models/Education";
 import {
   createTRPCRouter,
   protectedProcedure,
@@ -7,16 +8,6 @@ import {
 } from "~/server/api/trpc";
 import { db } from "~/server/db";
 import { can } from "~/utils/accesscontrol";
-
-// Zod schema for Education
-const educationInput = z.object({
-  school: z.string().min(1),
-  degree: z.string().optional(),
-  startDate: z.date().optional(),
-  endDate: z.date().optional(),
-  detailsMd: z.string().optional(),
-  orderIndex: z.number().optional(),
-});
 
 export const educationRouter = createTRPCRouter({
   // Read all
@@ -37,7 +28,7 @@ export const educationRouter = createTRPCRouter({
 
   // Create
   create: protectedProcedure
-    .input(educationInput)
+    .input(educationSchema)
     .mutation(async ({ ctx, input }) => {
       if (!can(ctx.session).createAny("education").granted) {
         throw new TRPCError({
@@ -67,7 +58,7 @@ export const educationRouter = createTRPCRouter({
   // Update
   update: protectedProcedure
     .input(
-      educationInput.extend({
+      educationSchema.extend({
         id: z.string(),
       }),
     )

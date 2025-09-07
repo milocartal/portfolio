@@ -1,5 +1,6 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
+import { skillSchema } from "~/lib/models/Skill";
 import {
   createTRPCRouter,
   protectedProcedure,
@@ -7,13 +8,6 @@ import {
 } from "~/server/api/trpc";
 import { db } from "~/server/db";
 import { can } from "~/utils/accesscontrol";
-
-// Zod schema for Skill
-const skillInput = z.object({
-  name: z.string().min(1),
-  level: z.string().optional(),
-  orderIndex: z.number().optional(),
-});
 
 export const skillRouter = createTRPCRouter({
   // Read all
@@ -34,7 +28,7 @@ export const skillRouter = createTRPCRouter({
 
   // Create
   create: protectedProcedure
-    .input(skillInput)
+    .input(skillSchema)
     .mutation(async ({ ctx, input }) => {
       if (!can(ctx.session).createAny("skill").granted) {
         throw new TRPCError({
@@ -53,7 +47,7 @@ export const skillRouter = createTRPCRouter({
   // Update
   update: protectedProcedure
     .input(
-      skillInput.extend({
+      skillSchema.extend({
         id: z.string(),
       }),
     )

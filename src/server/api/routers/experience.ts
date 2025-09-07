@@ -1,5 +1,6 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
+import { experienceSchema } from "~/lib/models/Experience";
 import {
   createTRPCRouter,
   protectedProcedure,
@@ -7,18 +8,6 @@ import {
 } from "~/server/api/trpc";
 import { db } from "~/server/db";
 import { can } from "~/utils/accesscontrol";
-
-// Zod schema for Experience
-const experienceInput = z.object({
-  company: z.string().min(1),
-  companyUrl: z.string().url().optional(),
-  role: z.string().min(1),
-  startDate: z.date().optional(),
-  endDate: z.date().optional(),
-  location: z.string().optional(),
-  summaryMd: z.string().optional(),
-  orderIndex: z.number().optional(),
-});
 
 export const experienceRouter = createTRPCRouter({
   // Read all
@@ -47,7 +36,7 @@ export const experienceRouter = createTRPCRouter({
 
   // Create
   create: protectedProcedure
-    .input(experienceInput)
+    .input(experienceSchema)
     .mutation(async ({ ctx, input }) => {
       if (!can(ctx.session).createAny("experience").granted) {
         throw new TRPCError({
@@ -77,7 +66,7 @@ export const experienceRouter = createTRPCRouter({
   // Update
   update: protectedProcedure
     .input(
-      experienceInput.extend({
+      experienceSchema.extend({
         id: z.string(),
       }),
     )

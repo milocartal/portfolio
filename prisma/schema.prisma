@@ -85,6 +85,7 @@ model Skill {
 
     name       String
     level      String?
+    icon       String?
     orderIndex Int      @default(0)
     createdAt  DateTime @default(now())
     updatedAt  DateTime @updatedAt
@@ -122,6 +123,8 @@ model Experience {
     endDate    DateTime?
     location   String?
     summaryMd  String?
+
+    type ExperienceType @default(WORK) //Alternance, Stage, Freelance, etc.
 
     orderIndex Int      @default(0)
     createdAt  DateTime @default(now())
@@ -231,4 +234,14 @@ enum AuditTargetType {
     EXPERIENCE
     PROJECT
     CV
+}
+
+enum ExperienceType {
+    PERMANENT
+    FIXED_TERM
+    APPRENTICESHIP
+    INTERNSHIP
+    FREELANCE
+    VOLUNTEER
+    WORK
 }
