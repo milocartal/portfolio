@@ -16,6 +16,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  RequiredAsterisk,
 } from "~/app/_components/ui/form";
 import { api } from "~/trpc/react";
 import { Input } from "~/app/_components/ui/input";
@@ -30,7 +31,7 @@ export const UpdateSkill: React.FC<UpdateSkillProps> = ({ skill }) => {
   const updateSkill = api.skill.update.useMutation({
     onSuccess: () => {
       toast.success("Compétence de base créée mise à jour avec succès");
-      router.push("/Skill");
+      router.push("/admin/skills");
     },
     onError: (error) => {
       console.error(error);
@@ -63,8 +64,9 @@ export const UpdateSkill: React.FC<UpdateSkillProps> = ({ skill }) => {
             name="name"
             render={({ field }) => (
               <FormItem className="w-full lg:w-1/2">
-                <FormLabel>
-                  Nom de la compétence <span className="text-red-500">*</span>
+                <FormLabel className="gap-1">
+                  Nom de la compétence
+                  <RequiredAsterisk />
                 </FormLabel>
                 <FormControl>
                   <Input placeholder="Nom" {...field} />

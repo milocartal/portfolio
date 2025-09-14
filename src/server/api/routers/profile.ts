@@ -1,5 +1,6 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
+import { profileInput } from "~/lib/models/Profile";
 import {
   createTRPCRouter,
   protectedProcedure,
@@ -7,17 +8,6 @@ import {
 } from "~/server/api/trpc";
 import { db } from "~/server/db";
 import { can } from "~/utils/accesscontrol";
-
-// Zod schema for Profile
-const profileInput = z.object({
-  fullName: z.string().min(1),
-  headline: z.string().optional(),
-  location: z.string().optional(),
-  website: z.string().optional(),
-  email: z.string().optional(),
-  phone: z.string().optional(),
-  aboutMd: z.string().optional(),
-});
 
 export const profileRouter = createTRPCRouter({
   hello: publicProcedure

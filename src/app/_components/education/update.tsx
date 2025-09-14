@@ -18,6 +18,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  RequiredAsterisk,
 } from "~/app/_components/ui/form";
 import { Input } from "~/app/_components/ui/input";
 import {
@@ -83,9 +84,9 @@ export const EducationUpdateForm: React.FC<EducationUpdateProps> = ({
             name="school"
             render={({ field }) => (
               <FormItem className="w-full lg:w-1/2">
-                <FormLabel>
-                  Nom de l&apos;établissement{" "}
-                  <span className="text-red-500">*</span>
+                <FormLabel className="gap-1">
+                  Nom de l&apos;établissement
+                  <RequiredAsterisk />
                 </FormLabel>
                 <FormControl>
                   <Input placeholder="Lycée Saint-Sylvain de Levy" {...field} />

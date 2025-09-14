@@ -1,6 +1,9 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
-import { educationSchema } from "~/lib/models/Education";
+import {
+  educationSchema,
+  simplifiedEducationSchema,
+} from "~/lib/models/Education";
 import {
   createTRPCRouter,
   protectedProcedure,
@@ -57,11 +60,7 @@ export const educationRouter = createTRPCRouter({
 
   // Update
   update: protectedProcedure
-    .input(
-      educationSchema.extend({
-        id: z.string(),
-      }),
-    )
+    .input(simplifiedEducationSchema.extend({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
       if (!can(ctx.session).updateAny("education").granted) {
         throw new TRPCError({

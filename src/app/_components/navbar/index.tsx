@@ -67,7 +67,7 @@ type ExclusiveNavLink =
 
 const links: ExclusiveNavLink[][] = [
   [
-    { title: "Profil", href: "/profile", icon: Binary },
+    { title: "Profil", href: "/admin/profile", icon: Binary },
     {
       title: "Expériences scolaires",
       href: "/admin/educations",

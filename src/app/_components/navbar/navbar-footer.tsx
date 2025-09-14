@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  BadgeCheck,
-  Bell,
-  ChevronsUpDown,
-  CreditCard,
-  LogOut,
-} from "lucide-react";
+import { BadgeCheck, ChevronsUpDown, LogOut } from "lucide-react";
 import type { Session } from "next-auth";
 
 import {
@@ -93,17 +87,11 @@ export function SidebarUserNav({ session }: { session: Session | null }) {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem onClick={() => router.push("/account")}>
+              <DropdownMenuItem
+                onClick={() => router.push(`/users/${user.id}`)}
+              >
                 <BadgeCheck />
                 Mon compte
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => router.push("/billing")}>
-                <CreditCard />
-                Facturation
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => router.push("/notifications")}>
-                <Bell />
-                Notifications
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />

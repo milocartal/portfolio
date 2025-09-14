@@ -1,6 +1,9 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
-import { experienceSchema } from "~/lib/models/Experience";
+import {
+  experienceSchema,
+  simplifiedExperienceSchema,
+} from "~/lib/models/Experience";
 import {
   createTRPCRouter,
   protectedProcedure,
@@ -66,7 +69,7 @@ export const experienceRouter = createTRPCRouter({
   // Update
   update: protectedProcedure
     .input(
-      experienceSchema.extend({
+      simplifiedExperienceSchema.extend({
         id: z.string(),
       }),
     )

@@ -15,6 +15,11 @@ import {
 
 import { cn } from "~/lib/utils";
 import { Label } from "~/app/_components/ui/label";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "~/app/_components/ui/tooltip";
 
 const Form = FormProvider;
 
@@ -166,6 +171,28 @@ function Fieldset({ className, ...props }: React.ComponentProps<"fieldset">) {
   );
 }
 
+function RequiredAsterisk({
+  className,
+  ...props
+}: React.ComponentProps<"span">) {
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <span
+          data-slot="required-asterisk"
+          className={cn("text-destructive h-auto", className)}
+          {...props}
+        >
+          *
+        </span>
+      </TooltipTrigger>
+      <TooltipContent side="right">
+        <p>Ce champ est requis</p>
+      </TooltipContent>
+    </Tooltip>
+  );
+}
+
 export {
   useFormField,
   Form,
@@ -176,4 +203,5 @@ export {
   FormMessage,
   FormField,
   Fieldset,
+  RequiredAsterisk,
 };

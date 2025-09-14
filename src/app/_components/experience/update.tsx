@@ -22,6 +22,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  RequiredAsterisk,
 } from "~/app/_components/ui/form";
 import { Input } from "~/app/_components/ui/input";
 import {
@@ -97,9 +98,9 @@ export const ExperienceUpdateForm: React.FC<ExperienceUpdateProps> = ({
             name="company"
             render={({ field }) => (
               <FormItem className="w-full lg:w-1/2">
-                <FormLabel>
-                  Nom de l&apos;entreprise{" "}
-                  <span className="text-red-500">*</span>
+                <FormLabel className="gap-1">
+                  Nom de l&apos;entreprise
+                  <RequiredAsterisk />
                 </FormLabel>
                 <FormControl>
                   <Input placeholder="Oktopod" {...field} />
@@ -130,9 +131,9 @@ export const ExperienceUpdateForm: React.FC<ExperienceUpdateProps> = ({
             name="role"
             render={({ field }) => (
               <FormItem className="w-full lg:w-1/2">
-                <FormLabel>
-                  Rôle au sein de l&apos;entreprise{" "}
-                  <span className="text-red-500">*</span>
+                <FormLabel className="gap-1">
+                  Rôle au sein de l&apos;entreprise
+                  <RequiredAsterisk />
                 </FormLabel>
                 <FormControl>
                   <Input placeholder="Développeur" {...field} />
@@ -147,8 +148,9 @@ export const ExperienceUpdateForm: React.FC<ExperienceUpdateProps> = ({
             name="type"
             render={({ field }) => (
               <FormItem className="w-full lg:w-1/2">
-                <FormLabel>
-                  Type de contrat <span className="text-red-500">*</span>
+                <FormLabel className="gap-1">
+                  Type de contrat
+                  <RequiredAsterisk />
                 </FormLabel>
                 <Select
                   onValueChange={field.onChange}
