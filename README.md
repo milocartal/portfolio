@@ -248,7 +248,30 @@ NODE_ENV="production"
 
 ## 📄 Licence
 
-Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
+Ce dépôt est public **mais n’est pas open source**.  
+Sauf accord écrit, **tous droits sont réservés**. Aucune réutilisation,
+modification, redistribution ou exploitation commerciale n’est autorisée.
+
+- **But du dépôt** : transparence et démonstration du projet `Portfolio`.
+- **Contributions** : ouvrez une *issue* pour les bugs/retours. Les *pull
+  requests* externes peuvent être fermées sans examen.
+- **Composants tiers** : les dépendances sont couvertes par leurs propres
+  licences (voir chaque paquet).
+
+### Ce qui est autorisé
+
+- Lire le code et consulter l’historique des commits.
+- Ouvrir des issues pour signaler un problème ou proposer une idée.
+
+### Ce qui est interdit sans accord écrit
+
+- Réutiliser le code dans un autre projet, public ou privé.
+- Redistribuer, publier des copies ou proposer des builds.
+- Déployer ce code en production ou vendre un service basé dessus.
+
+Pour toute demande de licence ou d’exception : <ton.email@domaine.tld>.
+
+Référence : voir le fichier [LICENSE](./LICENSE).
 
 ## 🆘 Support
 
