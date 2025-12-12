@@ -1,17 +1,35 @@
 # Portfolio Personnel
 
-Une application de portfolio moderne et complète construite avec la stack T3 (TypeScript, Next.js, tRPC, Prisma), permettant de gérer et présenter de manière professionnelle profils, expériences, formations, compétences et projets.
+> Une application de portfolio moderne et complète construite avec la **T3 Stack** (TypeScript, Next.js, tRPC, Prisma), permettant de gérer et présenter de manière professionnelle profils, expériences, formations, compétences et projets.
+
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.8-blue?logo=typescript)](https://www.typescriptlang.org/)
+[![tRPC](https://img.shields.io/badge/tRPC-11-2596be?logo=trpc)](https://trpc.io/)
+[![Prisma](https://img.shields.io/badge/Prisma-6-2D3748?logo=prisma)](https://www.prisma.io/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38bdf8?logo=tailwind-css)](https://tailwindcss.com/)
+
+## 📚 Documentation
+
+**[→ Documentation complète dans `/src/app/docs/`](./src/app/docs/README.md)**
+
+- 📖 [Guide de développement](./src/app/docs/development.md) - Installation et workflow
+- 🚀 [Guide de déploiement](./src/app/docs/deployment.md) - Production et hébergement
+- 🏗️ [Architecture](./src/app/docs/architecture.md) - Structure et patterns
+- 🗄️ [Base de données](./src/app/docs/database.md) - Schéma et modèles
+- 🔐 [Authentification](./src/app/docs/authentication.md) - NextAuth et permissions
+- 🔌 [API tRPC](./src/app/docs/api.md) - Routers et procédures
+- 🎨 [Composants UI](./src/app/docs/components.md) - Interface et composants
 
 ## ✨ Fonctionnalités
 
-- **📄 Gestion de CV dynamique** : Création et personnalisation de CV avec différents thèmes
-- **🔐 Authentification complète** : Système d'authentification avec NextAuth.js et gestion des rôles
-- **⚡ Administration en temps réel** : Interface d'administration pour gérer tous les contenus
-- **📝 Éditeur riche** : Intégration de Lexical pour l'édition de contenu markdown
-- **🎨 Interface moderne** : Design responsive avec Tailwind CSS et composants Radix UI
-- **🔍 Contrôle d'accès** : Système de permissions granulaires avec AccessControl
-- **📊 Gestion des données** : Base de données PostgreSQL avec Prisma ORM
-- **🚀 Performance optimisée** : Stack Next.js 15 avec optimisations avancées
+- **📄 Gestion de CV dynamique** - Création et personnalisation de CV avec différents thèmes
+- **🔐 Authentification complète** - NextAuth.js avec gestion des rôles et permissions
+- **⚡ Administration en temps réel** - Interface d'administration pour gérer tous les contenus
+- **📝 Éditeur riche** - Intégration de Lexical pour l'édition de contenu markdown
+- **🎨 Interface moderne** - Design responsive avec Tailwind CSS et shadcn/ui
+- **🔍 Contrôle d'accès** - Système de permissions granulaires avec AccessControl
+- **📊 Gestion des données** - Base de données PostgreSQL avec Prisma ORM
+- **🚀 Performance optimisée** - Stack Next.js 15 avec Server Components et optimisations
 
 ## 🛠️ Technologies utilisées
 
@@ -35,8 +53,9 @@ Une application de portfolio moderne et complète construite avec la stack T3 (T
 
 ### UI/UX
 
-- **[Tailwind CSS](https://tailwindcss.com)** - Framework CSS utility-first
-- **[shadcn/ui](https://ui.shadcn.com/)** - Composants UI accessibles
+- **[Tailwind CSS 4](https://tailwindcss.com)** - Framework CSS utility-first
+- **[Radix UI](https://www.radix-ui.com/)** - Composants primitifs accessibles
+- **[shadcn/ui](https://ui.shadcn.com/)** - Composants UI stylisés
 - **[Lexical](https://lexical.dev/)** - Éditeur de texte riche extensible
 - **[Lucide React](https://lucide.dev/)** - Icônes modernes
 - **[Sonner](https://sonner.emilkowal.ski/)** - Notifications toast
@@ -47,29 +66,33 @@ Une application de portfolio moderne et complète construite avec la stack T3 (T
 - **[Prettier](https://prettier.io/)** - Formatteur de code
 - **[pnpm](https://pnpm.io/)** - Gestionnaire de paquets performant
 
-## 🚀 Installation et configuration
+## 🚀 Démarrage rapide
 
 ### Prérequis
 
-- Node.js 18+
-- pnpm
-- PostgreSQL
-- Docker (optionnel, pour la base de données locale)
+Assurez-vous d'avoir installé :
 
-### 1. Cloner le projet
+- **Node.js** 18+ ([télécharger](https://nodejs.org/))
+- **pnpm** 10+ ([installer](https://pnpm.io/installation))
+- **PostgreSQL** 14+ ([télécharger](https://www.postgresql.org/download/))
+- **Git** ([télécharger](https://git-scm.com/))
+
+### Installation en 5 minutes
+
+#### 1. Cloner le projet
 
 ```bash
 git clone https://github.com/milocartal/portfolio.git
 cd portfolio
 ```
 
-### 2. Installer les dépendances
+#### 2. Installer les dépendances
 
 ```bash
 pnpm install
 ```
 
-### 3. Configuration de l'environnement
+#### 3. Configuration de l'environnement
 
 Créez un fichier `.env` à la racine du projet :
 
@@ -83,20 +106,23 @@ NEXTAUTH_URL="http://localhost:3000"
 
 # Environnement
 NODE_ENV="development"
+
+# Générer AUTH_SECRET
+# openssl rand -base64 32
 ```
 
-### 4. Configuration de la base de données
+#### 4. Configuration de la base de données
 
-#### Option A : Base de données locale avec Docker
+**Option A : Base de données locale avec Docker**
 
-```bash
-# Démarrer la base de données avec le script fourni
-chmod +x start-database.sh
 ./start-database.sh
 ```
 
-#### Option B : Base de données existante
+**Option B : Base de données existante**
 
+Assurez-vous que PostgreSQL est installé et configuré, puis mettez à jour `DATABASE_URL` dans `.env`.
+
+#### 5. Initialiser la base de données
 Assurez-vous que PostgreSQL est installé et configuré, puis mettez à jour l'URL de connexion.
 
 ### 5. Initialiser la base de données
@@ -105,119 +131,228 @@ Assurez-vous que PostgreSQL est installé et configuré, puis mettez à jour l'U
 # Générer le client Prisma
 pnpm db:generate
 
-# Appliquer les migrations
-pnpm db:push
-
-# Optionnel : Peupler avec des données de test
+# (Optionnel) Peupler avec des données de test
 pnpm seed
+```
+
+#### 6. Lancer l'application
 ```
 
 ### 6. Lancer l'application
 
 ```bash
-# Mode développement
+# Démarrer le serveur de développement
 pnpm dev
-
-# Mode développement avec Turbo (plus rapide)
-pnpm turbo
-
-# Mode production
-pnpm build
-pnpm start
 ```
 
-L'application sera accessible sur [http://localhost:3000](http://localhost:3000)
+🎉 **L'application est maintenant accessible sur [http://localhost:3000](http://localhost:3000)**
 
+> **Compte de test** : `admin@example.com` / `admin123` (après `pnpm seed`)
+
+---
+
+📖 **Pour plus de détails** : Consultez le [Guide de développement complet](./src/app/docs/development.md)
+
+## 📁 Structure du projet
 ## 📁 Structure du projet
 
 ```text
-src/
-├── app/                    # App Router de Next.js
-│   ├── admin/             # Interface d'administration
-│   ├── api/               # Routes API
-│   └── _components/       # Composants réutilisables
-│       ├── education/     # Gestion des formations
-│       ├── experience/    # Gestion des expériences
-│       ├── lexical/       # Éditeur de texte riche
-│       ├── profile/       # Gestion du profil
-│       ├── skill/         # Gestion des compétences
-│       ├── ui/           # Composants UI de base
-│       └── user/         # Gestion des utilisateurs
-├── lib/                   # Utilitaires et modèles
-├── server/               # Configuration serveur
-│   ├── api/              # Routeurs tRPC
-│   ├── auth/             # Configuration NextAuth
-│   └── db.ts             # Client Prisma
-├── styles/               # Styles globaux
-├── trpc/                 # Configuration client tRPC
-└── utils/                # Utilitaires
-```
+portfolio/
+├── src/
+│   ├── app/                      # Next.js App Router
+│   │   ├── page.tsx              # Page d'accueil
+│   │   ├── layout.tsx            # Layout racine
+│   │   ├── admin/                # Interface d'administration
+│   │   ├── api/                  # Routes API (NextAuth, tRPC)
+│   │   ├── docs/                 # 📚 Documentation complète
+│   │   └── _components/          # Composants réutilisables
+│   │       ├── ui/               # Composants UI (shadcn/ui)
+│   │       ├── education/        # Gestion des formations
+│   │       ├── experience/       # Gestion des expériences
+│   │       ├── skill/            # Gestion des compétences
+│   │       ├── lexical/          # Éditeur de texte riche
+│   │       └── ...
+│   ├── server/                   # Code serveur
+│   │   ├── api/                  # Routers tRPC
+│   │   ├── auth/                 # Configuration NextAuth
+│   │   └── db.ts                 # Client Prisma
+│   ├── lib/                      # Modèles et utilitaires
+│   ├── utils/                    # Helpers métier
+│   └── trpc/                     # Configuration client tRPC
+## 🎯 Fonctionnement
 
-## 🎯 Utilisation
-
-### Interface publique
+### 🌐 Interface publique
 
 - Consultation des CV publics
 - Visualisation des profils, expériences et projets
 
-### Interface d'administration
+### 🔐 Interface d'administration
 
-Accessible via `/admin` (authentification requise avec rôle admin) :
+Accessible via `/admin` (authentification requise avec rôle `admin`) :
 
-1. **Gestion du profil** : Informations personnelles, coordonnées
-2. **Expériences professionnelles** : Postes, entreprises, périodes
-3. **Formations** : Diplômes, écoles, certifications
-4. **Compétences** : Technologies, niveaux, catégories
-5. **Projets** : Portfolio de réalisations
-6. **Utilisateurs** : Gestion des accès et rôles
+| Module | Description |
+|--------|-------------|
+| 👤 **Profil** | Informations personnelles, coordonnées |
+| 💼 **Expériences** | Postes, entreprises, périodes |
+| 🎓 **Formations** | Diplômes, écoles, certifications |
+| 🛠️ **Compétences** | Technologies, niveaux, catégories |
+| 🚀 **Projets** | Portfolio de réalisations |
+| 👥 **Utilisateurs** | Gestion des accès et rôles |
 
-### Création de CV
+### 📄 Système de CV
 
 - Sélection des éléments à inclure
 - Personnalisation de l'ordre des sections
 - Choix du thème de présentation
 - Export et partage
 
-## 🔑 Système de rôles
+## 🔑 Rôles et permissions
 
-- **viewer** : Consultation publique des contenus
-- **admin** : Accès complet à l'interface d'administration
+| Rôle | Permissions |
+## 📜 Commandes disponibles
 
-## 📜 Scripts disponibles
+### Développement
 
 ```bash
-# Développement
-pnpm dev                 # Démarrer en mode développement
-pnpm turbo              # Démarrer avec Turbo (plus rapide)
-
-# Construction et production
-pnpm build              # Construire l'application
+pnpm dev                 # Démarrer le serveur de développement
+pnpm turbo              # Démarrer avec Turbo (expérimental, plus rapide)
+pnpm build              # Construire pour la production
 pnpm start              # Démarrer en mode production
-pnpm preview            # Construire et démarrer
+```
 
-# Base de données
+### Base de données
+
+```bash
 pnpm db:generate        # Générer le client Prisma
-pnpm db:migrate         # Appliquer les migrations
-pnpm db:push            # Pousser le schéma vers la DB
-pnpm db:studio          # Ouvrir Prisma Studio
-pnpm seed               # Peupler la base de données
+pnpm db:push            # Appliquer le schéma à la DB (dev)
+pnpm db:migrate         # Créer/appliquer une migration (prod)
+pnpm db:studio          # Ouvrir Prisma Studio (interface graphique)
+pnpm seed               # Peupler avec des données de test
+```
 
-# Qualité du code
-pnpm lint               # Linter le code
+### Qualité du code
+
+```bash
+pnpm lint               # Vérifier les erreurs de lint
 pnpm lint:fix           # Corriger automatiquement
 pnpm format:check       # Vérifier le formatage
 pnpm format:write       # Formater le code
-pnpm typecheck          # Vérification TypeScript
-pnpm check              # Lint + vérification types
-```
-
 ## 🚀 Déploiement
 
 ### Vercel (recommandé)
 
-1. Connecter le repository GitHub à Vercel
-2. Configurer les variables d'environnement
-3. Déployer automatiquement
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/milocartal/portfolio)
+
+1. **Connecter** le repository GitHub à Vercel
+2. **Configurer** les variables d'environnement :
+   ```env
+   DATABASE_URL="postgresql://..."
+   AUTH_SECRET="généré-avec-openssl-rand-base64-32"
+   NEXTAUTH_URL="https://votre-domaine.com"
+   NODE_ENV="production"
+   ```
+3. **Déployer** automatiquement
+
+### Docker
+
+```bash
+# Construire l'image
+docker build -t portfolio .
+
+# Lancer le conteneur
+docker run -p 3000:3000 \
+  -e DATABASE_URL="postgresql://..." \
+  -e AUTH_SECRET="..." \
+## 🛠️ Technologies clés
+
+<table>
+<tr>
+<td valign="top" width="50%">
+
+### Frontend
+- **Next.js 15** - Framework React avec App Router
+- **TypeScript** - Typage statique
+- **Tailwind CSS 4** - Styling utility-first
+- **Radix UI** - Composants primitifs accessibles
+- **Lexical** - Éditeur de texte riche
+
+</td>
+<td valign="top" width="50%">
+
+### Backend
+- **tRPC** - API type-safe end-to-end
+- **Prisma** - ORM pour PostgreSQL
+- **NextAuth.js** - Authentification
+- **AccessControl** - Gestion des permissions
+- **Argon2** - Hachage sécurisé
+
+</td>
+</tr>
+</table>
+
+## 🤝 Contribution
+
+Les contributions sont bienvenues ! Pour contribuer :
+
+1. **Fork** le projet
+2. **Créer** une branche feature (`git checkout -b feature/ma-feature`)
+3. **Commiter** avec des messages clairs (`git commit -m 'feat: ajouter fonctionnalité'`)
+4. **Pousser** vers la branche (`git push origin feature/ma-feature`)
+## 🐛 Problèmes connus & Support
+
+### Résolution de problèmes courants
+
+| Problème | Solution |
+|----------|----------|
+| Module not found | `rm -rf node_modules .next && pnpm install` |
+| Erreur Prisma Client | `pnpm db:generate` |
+| Port 3000 occupé | `lsof -i :3000` puis `kill -9 <PID>` |
+| DB inaccessible | Vérifier que PostgreSQL est démarré |
+
+### Obtenir de l'aide
+
+- 📖 [Documentation complète](./src/app/docs/README.md)
+- 🐛 [Ouvrir une issue](https://github.com/milocartal/portfolio/issues)
+- 💬 [T3 Stack Discord](https://t3.gg/discord)
+- 📧 Contact : milo.cartal.pro@gmail.com
+
+## 📚 Ressources
+
+### Documentation du projet
+- [📖 Documentation complète](./src/app/docs/README.md)
+- [🏗️ Architecture](./src/app/docs/architecture.md)
+- [🗄️ Base de données](./src/app/docs/database.md)
+- [🔐 Authentification](./src/app/docs/authentication.md)
+
+### Ressources externes
+- [T3 Stack](https://create.t3.gg/)
+- [Next.js Documentation](https://nextjs.org/docs)
+- [tRPC Documentation](https://trpc.io/docs)
+- [Prisma Documentation](https://www.prisma.io/docs)
+
+## 🙏 Remerciements
+
+Ce projet est construit avec la [T3 Stack](https://create.t3.gg/) et utilise de nombreuses technologies open source exceptionnelles. Merci à tous les mainteneurs et contributeurs !
+
+---
+
+<div align="center">
+
+**Développé avec ❤️ par [Milo Cartal](https://github.com/milocartal)**
+
+[⭐ Star sur GitHub](https://github.com/milocartal/portfolio) · [🐛 Reporter un bug](https://github.com/milocartal/portfolio/issues) · [💡 Proposer une feature](https://github.com/milocartal/portfolio/issues)
+
+</div>
+- `refactor:` - Refactorisation
+- `test:` - Tests
+- `chore:` - Tâches diverses
+
+> 📖 **Voir** : [Guide de contribution](./src/app/docs/development.md#-contribution) pour plus de détails
+- Render
+- AWS (ECS, Amplify)
+- Google Cloud Run
+
+> 📖 **Voir** : [Guide de déploiement complet](./src/app/docs/deployment.md) avec instructions détailléesDéployer automatiquement
 
 ### Docker
 
