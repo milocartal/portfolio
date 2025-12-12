@@ -43,6 +43,8 @@ import { format } from "date-fns/format";
 import { CalendarIcon } from "lucide-react";
 import { ExperienceType } from "@prisma/client";
 import type { ExperienceUpdateProps } from "./type";
+import { Suspense } from "react";
+import CustomLexicalEditor from "../lexical/LexicalEditor";
 
 export const ExperienceUpdateForm: React.FC<ExperienceUpdateProps> = ({
   experience,
@@ -266,6 +268,24 @@ export const ExperienceUpdateForm: React.FC<ExperienceUpdateProps> = ({
             )}
           />
         </Fieldset>
+
+        <FormField
+          control={form.control}
+          name="summaryMd"
+          render={({ field }) => (
+            <FormItem className="w-full">
+              <FormLabel className="gap-1">À propos</FormLabel>
+              <Suspense fallback={<div>Chargement de l&apos;éditeur...</div>}>
+                <CustomLexicalEditor
+                  onChangeJSON={field.onChange}
+                  initialContent={field.value}
+                  placeholder="Description de votre expérience professionnelle, des missions réalisées, des technologies utilisées, etc."
+                />
+              </Suspense>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         <Fieldset className="justify-center">
           <Button

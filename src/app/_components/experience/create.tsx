@@ -42,6 +42,8 @@ import { cn } from "~/lib/utils";
 import { format } from "date-fns/format";
 import { CalendarIcon } from "lucide-react";
 import { ExperienceType } from "@prisma/client";
+import { Suspense } from "react";
+import CustomLexicalEditor from "../lexical/LexicalEditor";
 
 export const ExperienceCreateForm: React.FC = () => {
   const router = useRouter();
@@ -108,7 +110,7 @@ export const ExperienceCreateForm: React.FC = () => {
               <FormItem className="w-full lg:w-1/2">
                 <FormLabel>Site de l&apos;entreprise</FormLabel>
                 <FormControl>
-                  <Input placeholder="https://www.oktopod.com" {...field} />
+                  <Input placeholder="https://www.oktopod.io" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -149,7 +151,7 @@ export const ExperienceCreateForm: React.FC = () => {
                 >
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder="Sélectionner un rôle" />
+                      <SelectValue placeholder="Sélectionner un type de contrat" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
@@ -252,11 +254,32 @@ export const ExperienceCreateForm: React.FC = () => {
                     />
                   </PopoverContent>
                 </Popover>
+                <FormDescription>
+                  Si vous êtes toujours en poste, laissez ce champ vide.
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
         </Fieldset>
+
+        <FormField
+          control={form.control}
+          name="summaryMd"
+          render={({ field }) => (
+            <FormItem className="w-full">
+              <FormLabel className="gap-1">À propos</FormLabel>
+              <Suspense fallback={<div>Chargement de l&apos;éditeur...</div>}>
+                <CustomLexicalEditor
+                  onChangeJSON={field.onChange}
+                  initialContent={field.value}
+                  placeholder="Description de votre expérience professionnelle, des missions réalisées, des technologies utilisées, etc."
+                />
+              </Suspense>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         <Fieldset className="justify-center">
           <Button

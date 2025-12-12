@@ -2,6 +2,7 @@ import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
 import { educationRouter } from "~/server/api/routers/education";
 import { experienceRouter } from "~/server/api/routers/experience";
 import { profileRouter } from "~/server/api/routers/profile";
+import { projectRouter } from "~/server/api/routers/project";
 import { skillRouter } from "~/server/api/routers/skill";
 import { userRouter } from "~/server/api/routers/user";
 
@@ -14,6 +15,7 @@ export const appRouter = createTRPCRouter({
   education: educationRouter,
   experience: experienceRouter,
   profile: profileRouter,
+  project: projectRouter,
   skill: skillRouter,
   user: userRouter,
 });

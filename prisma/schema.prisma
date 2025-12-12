@@ -142,6 +142,8 @@ model Experience {
     createdAt  DateTime @default(now())
     updatedAt  DateTime @updatedAt
 
+    public Boolean @default(true)
+
     CVs CvVersionExperience[]
 
     Skills Skill[] @relation("AquiredInExperience")
