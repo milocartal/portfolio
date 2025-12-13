@@ -69,16 +69,31 @@ export default async function ProjectsPage() {
               return (
                 <Card
                   key={project.id}
-                  className="flex flex-col transition-shadow hover:shadow-lg"
+                  className="flex flex-col overflow-hidden transition-shadow hover:shadow-lg"
                 >
+                  {project.picture && (
+                    <div className="aspect-video w-full overflow-hidden">
+                      <img
+                        src={project.picture}
+                        alt={project.name}
+                        className="h-full w-full object-cover transition-transform hover:scale-105"
+                      />
+                    </div>
+                  )}
                   <CardHeader>
                     <CardTitle className="line-clamp-2">
                       {project.name}
                     </CardTitle>
-                    {project.summaryMd && (
+                    {project.previewText ? (
                       <CardDescription className="line-clamp-3">
-                        {project.summaryMd.substring(0, 150)}...
+                        {project.previewText}
                       </CardDescription>
+                    ) : (
+                      project.summaryMd && (
+                        <CardDescription className="line-clamp-3">
+                          {project.summaryMd.substring(0, 150)}...
+                        </CardDescription>
+                      )
                     )}
                   </CardHeader>
 

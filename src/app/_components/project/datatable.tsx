@@ -148,6 +148,36 @@ const columns: ColumnDef<ProjectWithSkills>[] = [
     },
   },
   {
+    accessorFn: (row) => row.picture,
+    header: "Image",
+    cell: (data) => {
+      const picture = data.getValue() as string | null;
+      return picture ? (
+        <div className="h-12 w-16 overflow-hidden rounded">
+          <img
+            src={picture}
+            alt="Project"
+            className="h-full w-full object-cover"
+          />
+        </div>
+      ) : (
+        <div className="text-muted-foreground text-xs italic">N/A</div>
+      );
+    },
+  },
+  {
+    accessorFn: (row) => row.previewText,
+    header: "Prévisualisation",
+    cell: (data) => {
+      const preview = data.getValue() as string | null;
+      return preview ? (
+        <div className="max-w-xs truncate text-xs">{preview}</div>
+      ) : (
+        <div className="text-muted-foreground text-xs italic">N/A</div>
+      );
+    },
+  },
+  {
     accessorFn: (row) => row.repoUrl,
     header: "URL du dépôt",
     cell: (data) => {

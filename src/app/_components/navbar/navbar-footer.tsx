@@ -25,7 +25,6 @@ import {
 } from "~/app/_components/ui/sidebar";
 import { api } from "~/trpc/react";
 import { toFallback } from "~/lib/utils";
-import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { ConnectionButton } from "~/app/_components/connection-button";
 
@@ -95,7 +94,7 @@ export function SidebarUserNav({ session }: { session: Session | null }) {
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => signOut({ callbackUrl: "/" })}>
+            <DropdownMenuItem onClick={() => router.push("/admin/logout")}>
               <LogOut />
               Se déconnecter
             </DropdownMenuItem>

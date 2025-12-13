@@ -87,7 +87,7 @@ model Link {
     name       String
     url        String
     icon       String?
-    orderIndex Int      @default(0)
+    orderIndex Int      @default(1)
     createdAt  DateTime @default(now())
     updatedAt  DateTime @updatedAt
 }
@@ -98,7 +98,7 @@ model Skill {
     name       String
     level      String?
     icon       String?
-    orderIndex Int      @default(0)
+    orderIndex Int      @default(1)
     createdAt  DateTime @default(now())
     updatedAt  DateTime @updatedAt
 
@@ -116,7 +116,7 @@ model Education {
     startDate  DateTime?
     endDate    DateTime?
     detailsMd  String?
-    orderIndex Int       @default(0)
+    orderIndex Int       @default(1)
     createdAt  DateTime  @default(now())
     updatedAt  DateTime  @updatedAt
 
@@ -138,7 +138,7 @@ model Experience {
 
     type ExperienceType @default(WORK) //Alternance, Stage, Freelance, etc.
 
-    orderIndex Int      @default(0)
+    orderIndex Int      @default(1)
     createdAt  DateTime @default(now())
     updatedAt  DateTime @updatedAt
 
@@ -152,12 +152,14 @@ model Experience {
 model Project {
     id String @id @default(cuid())
 
-    name      String
-    summaryMd String?
-    url       String?
-    repoUrl   String?
+    name        String
+    picture     String?
+    previewText String?
+    summaryMd   String?
+    url         String?
+    repoUrl     String?
 
-    orderIndex Int      @default(0)
+    orderIndex Int      @default(1)
     createdAt  DateTime @default(now())
     updatedAt  DateTime @updatedAt
 

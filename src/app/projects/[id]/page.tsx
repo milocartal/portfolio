@@ -34,7 +34,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
   const description =
-    project.summaryMd?.substring(0, 160) ?? `Projet ${project.name}`;
+    project.previewText ??
+    project.summaryMd?.substring(0, 160) ??
+    `Projet ${project.name}`;
+
+  const images = project.picture
+    ? [
+        {
+          url: project.picture,
+          alt: project.name,
+        },
+      ]
+    : undefined;
 
   return {
     title: project.name,
@@ -46,11 +57,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `${baseUrl}/projects/${project.id}`,
       publishedTime: project.createdAt.toISOString(),
       modifiedTime: project.updatedAt.toISOString(),
+      images,
     },
     twitter: {
-      card: "summary_large_image",
+      card: project.picture ? "summary_large_image" : "summary",
       title: project.name,
       description,
+      images: project.picture ? [project.picture] : undefined,
     },
   };
 }
@@ -94,6 +107,12 @@ export default async function ProjectDetailPage({ params }: Props) {
           <h1 className="mb-4 text-4xl font-bold tracking-tight md:text-5xl">
             {project.name}
           </h1>
+
+          {project.previewText && (
+            <p className="text-muted-foreground mb-4 text-lg md:text-xl">
+              {project.previewText}
+            </p>
+          )}
 
           <div className="text-muted-foreground flex flex-wrap items-center gap-4 text-sm">
             <div className="flex items-center gap-2">
@@ -147,7 +166,21 @@ export default async function ProjectDetailPage({ params }: Props) {
 
         <div className="grid gap-8 lg:grid-cols-3">
           {/* Main Content */}
-          <div className="lg:col-span-2">
+          <div className="space-y-6 lg:col-span-2">
+            {/* Project Image */}
+            {project.picture && (
+              <Card className="overflow-hidden">
+                <div className="aspect-video w-full">
+                  <img
+                    src={project.picture}
+                    alt={project.name}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              </Card>
+            )}
+
+            {/* Description */}
             <Card>
               <CardHeader>
                 <CardTitle>Description</CardTitle>

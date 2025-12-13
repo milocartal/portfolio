@@ -50,6 +50,8 @@ export const ProjectCreateForm: React.FC = () => {
     resolver: zodResolver(projectSchema),
     defaultValues: {
       name: "",
+      picture: undefined,
+      previewText: undefined,
       summaryMd: undefined,
       url: undefined,
       repoUrl: undefined,
@@ -100,6 +102,42 @@ export const ProjectCreateForm: React.FC = () => {
                 </FormLabel>
                 <FormControl>
                   <Input placeholder="Mon super projet" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </Fieldset>
+
+        <Fieldset>
+          <FormField
+            control={form.control}
+            name="picture"
+            render={({ field }) => (
+              <FormItem className="w-full lg:w-1/2">
+                <FormLabel>Image du projet</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="https://example.com/image.jpg"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="previewText"
+            render={({ field }) => (
+              <FormItem className="w-full lg:w-1/2">
+                <FormLabel>Texte de prévisualisation</FormLabel>
+                <FormDescription>
+                  Court résumé affiché dans la liste des projets
+                </FormDescription>
+                <FormControl>
+                  <Input placeholder="Un projet innovant de..." {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

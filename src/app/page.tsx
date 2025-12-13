@@ -235,13 +235,27 @@ export default async function Home() {
                       key={project.id}
                       className="transition-shadow hover:shadow-lg"
                     >
+                      {project.picture && (
+                        <div className="aspect-video w-full overflow-hidden rounded-t-lg">
+                          <img
+                            src={project.picture}
+                            alt={project.name}
+                            className="h-full w-full object-cover transition-transform hover:scale-105"
+                          />
+                        </div>
+                      )}
                       <CardHeader>
                         <CardTitle className="text-lg">
                           {project.name}
                         </CardTitle>
+                        {project.previewText && (
+                          <CardDescription className="line-clamp-2">
+                            {project.previewText}
+                          </CardDescription>
+                        )}
                       </CardHeader>
                       <CardContent className="space-y-4">
-                        {project.summaryMd && (
+                        {project.summaryMd && !project.previewText && (
                           <div className="prose prose-sm dark:prose-invert line-clamp-3 max-w-none">
                             <CustomLexicalReadOnly
                               initialContent={project.summaryMd}

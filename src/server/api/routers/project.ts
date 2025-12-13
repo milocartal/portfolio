@@ -11,6 +11,8 @@ import { can } from "~/utils/accesscontrol";
 // Zod schema for Project
 const projectInput = z.object({
   name: z.string().min(1),
+  picture: z.string().optional(),
+  previewText: z.string().optional(),
   summaryMd: z.string().optional(),
   url: z.string().optional(),
   repoUrl: z.string().optional(),
