@@ -22,6 +22,7 @@ export const projectRouter = createTRPCRouter({
   getAll: publicProcedure.query(async () => {
     return db.project.findMany({
       orderBy: { orderIndex: "asc" },
+      include: { Skills: true },
     });
   }),
 
@@ -31,6 +32,7 @@ export const projectRouter = createTRPCRouter({
     .query(async ({ input }) => {
       return db.project.findUnique({
         where: { id: input.id },
+        include: { Skills: true },
       });
     }),
 

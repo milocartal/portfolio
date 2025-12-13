@@ -16,6 +16,7 @@ Bienvenue dans la documentation complète de l'application Portfolio. Cette docu
 - **[Authentification](./authentication.md)** - NextAuth.js, rôles et permissions
 - **[API tRPC](./api.md)** - Routers, procédures et utilisation côté client
 - **[Composants UI](./components.md)** - Composants réutilisables et patterns d'interface
+- **[Métadonnées & SEO](./metadata.md)** - Configuration SEO, OpenGraph, sitemap et PWA
 
 ## 🚀 Démarrage rapide
 

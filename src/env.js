@@ -23,7 +23,13 @@ export const env = createEnv({
    * `NEXT_PUBLIC_`.
    */
   client: {
-    // NEXT_PUBLIC_CLIENTVAR: z.string(),
+    NEXT_PUBLIC_APP_URL: z.string().url(),
+
+    // OpenGraph Image customization (optional)
+    NEXT_PUBLIC_SITE_NAME: z.string().optional(),
+    NEXT_PUBLIC_SITE_TITLE: z.string().optional(),
+    NEXT_PUBLIC_TOP_SKILLS: z.string().optional(),
+    NEXT_PUBLIC_LOCATION: z.string().optional(),
   },
 
   /**
@@ -34,6 +40,11 @@ export const env = createEnv({
     AUTH_SECRET: process.env.AUTH_SECRET,
     DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
+    NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
+    NEXT_PUBLIC_SITE_NAME: process.env.NEXT_PUBLIC_SITE_NAME,
+    NEXT_PUBLIC_SITE_TITLE: process.env.NEXT_PUBLIC_SITE_TITLE,
+    NEXT_PUBLIC_TOP_SKILLS: process.env.NEXT_PUBLIC_TOP_SKILLS,
+    NEXT_PUBLIC_LOCATION: process.env.NEXT_PUBLIC_LOCATION,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

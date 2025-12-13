@@ -1,61 +1,372 @@
 import Link from "next/link";
+import {
+  Mail,
+  MapPin,
+  Globe,
+  Briefcase,
+  GraduationCap,
+  Code,
+  FolderGit2,
+  ExternalLink,
+} from "lucide-react";
 
 import { auth } from "~/server/auth";
 import { api, HydrateClient } from "~/trpc/server";
+import { Badge } from "~/app/_components/ui/badge";
+import { Button } from "~/app/_components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "~/app/_components/ui/card";
+import { CustomLexicalReadOnly } from "~/app/_components/lexical/display";
+import {
+  generatePersonSchema,
+  generateWebsiteSchema,
+  generatePortfolioSchema,
+} from "~/lib/structured-data";
 
 export default async function Home() {
-  const hello = await api.profile.hello({ text: "it's the porfolio" });
   const session = await auth();
+
+  // Récupérer toutes les données
+  const [profile, experiences, educations, skills, projects] =
+    await Promise.all([
+      api.profile.get(),
+      api.experience.getAll(),
+      api.education.getAll(),
+      api.skill.getAll(),
+      api.project.getAll(),
+    ]);
+
+  // Générer les structured data pour le SEO
+  const [personSchema, websiteSchema, portfolioSchema] = await Promise.all([
+    generatePersonSchema(),
+    generateWebsiteSchema(),
+    generatePortfolioSchema(),
+  ]);
 
   return (
     <HydrateClient>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-        <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-          <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
-            Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
-          </h1>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
-              href="https://create.t3.gg/en/usage/first-steps"
-              target="_blank"
-            >
-              <h3 className="text-2xl font-bold">First Steps →</h3>
-              <div className="text-lg">
-                Just the basics - Everything you need to know to set up your
-                database and authentication.
-              </div>
-            </Link>
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
-              href="https://create.t3.gg/en/introduction"
-              target="_blank"
-            >
-              <h3 className="text-2xl font-bold">Documentation →</h3>
-              <div className="text-lg">
-                Learn more about Create T3 App, the libraries it uses, and how
-                to deploy it.
-              </div>
-            </Link>
-          </div>
-          <div className="flex flex-col items-center gap-2">
-            <p className="text-2xl text-white">
-              {hello ? hello.greeting : "Loading tRPC query..."}
-            </p>
+      {/* JSON-LD Structured Data */}
+      {personSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        />
+      )}
+      {websiteSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+        />
+      )}
+      {portfolioSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(portfolioSchema),
+          }}
+        />
+      )}
 
-            <div className="flex flex-col items-center justify-center gap-4">
-              <p className="text-center text-2xl text-white">
-                {session && <span>Logged in as {session.user?.name}</span>}
-              </p>
-              <Link
-                href={session ? "/api/auth/signout" : "/api/auth/signin"}
-                className="rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20"
-              >
-                {session ? "Sign out" : "Sign in"}
-              </Link>
+      <main className="bg-background min-h-screen">
+        {/* Hero Section */}
+        <section className="from-muted/50 to-background border-b bg-gradient-to-b">
+          <div className="container mx-auto px-4 py-16 md:py-24">
+            <div className="mx-auto max-w-4xl text-center">
+              <h1 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
+                {profile?.fullName ?? "Portfolio"}
+              </h1>
+              {profile?.headline && (
+                <p className="text-muted-foreground mb-6 text-xl md:text-2xl">
+                  {profile.headline}
+                </p>
+              )}
+              {profile?.jobTitle && (
+                <div className="mb-6 flex items-center justify-center gap-2 text-lg">
+                  <Briefcase className="h-5 w-5" />
+                  <span>{profile.jobTitle}</span>
+                </div>
+              )}
+
+              {/* Contact Info */}
+              <div className="text-muted-foreground mb-8 flex flex-wrap items-center justify-center gap-4 text-sm">
+                {profile?.location && (
+                  <div className="flex items-center gap-1">
+                    <MapPin className="h-4 w-4" />
+                    <span>{profile.location}</span>
+                  </div>
+                )}
+                {profile?.email && (
+                  <Link
+                    href={`mailto:${profile.email}`}
+                    className="hover:text-foreground flex items-center gap-1"
+                  >
+                    <Mail className="h-4 w-4" />
+                    <span>{profile.email}</span>
+                  </Link>
+                )}
+                {profile?.website && (
+                  <Link
+                    href={profile.website}
+                    target="_blank"
+                    className="hover:text-foreground flex items-center gap-1"
+                  >
+                    <Globe className="h-4 w-4" />
+                    <span>Website</span>
+                  </Link>
+                )}
+              </div>
+
+              {/* Admin Link */}
+              {session?.user.role === "admin" && (
+                <div className="flex justify-center gap-2">
+                  <Button asChild>
+                    <Link href="/admin">Accéder à l&apos;administration</Link>
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
+        </section>
+
+        <div className="container mx-auto px-4 py-12">
+          <div className="mx-auto max-w-6xl space-y-12">
+            {/* About Section */}
+            {profile?.aboutMd && (
+              <section>
+                <h2 className="mb-6 text-3xl font-bold">À propos</h2>
+                <Card>
+                  <CardContent className="prose prose-sm dark:prose-invert max-w-none pt-6">
+                    <CustomLexicalReadOnly initialContent={profile.aboutMd} />
+                  </CardContent>
+                </Card>
+              </section>
+            )}
+
+            {/* Experience Section */}
+            {experiences && experiences.length > 0 && (
+              <section>
+                <div className="mb-6 flex items-center gap-2">
+                  <Briefcase className="h-6 w-6" />
+                  <h2 className="text-3xl font-bold">
+                    Expériences professionnelles
+                  </h2>
+                </div>
+                <div className="space-y-4">
+                  {experiences.map((exp) => (
+                    <Card key={exp.id}>
+                      <CardHeader>
+                        <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                          <div>
+                            <CardTitle className="text-xl">
+                              {exp.role}
+                            </CardTitle>
+                            <CardDescription className="text-base">
+                              {exp.companyUrl ? (
+                                <Link
+                                  href={exp.companyUrl}
+                                  target="_blank"
+                                  className="inline-flex items-center gap-1 hover:underline"
+                                >
+                                  {exp.company}
+                                  <ExternalLink className="h-3 w-3" />
+                                </Link>
+                              ) : (
+                                exp.company
+                              )}
+                            </CardDescription>
+                          </div>
+                          <div className="text-muted-foreground text-sm">
+                            {exp.startDate &&
+                              new Date(exp.startDate).toLocaleDateString(
+                                "fr-FR",
+                                { month: "short", year: "numeric" },
+                              )}
+                            {" - "}
+                            {exp.endDate
+                              ? new Date(exp.endDate).toLocaleDateString(
+                                  "fr-FR",
+                                  { month: "short", year: "numeric" },
+                                )
+                              : "Présent"}
+                          </div>
+                        </div>
+                        {exp.location && (
+                          <div className="text-muted-foreground flex items-center gap-1 text-sm">
+                            <MapPin className="h-3 w-3" />
+                            {exp.location}
+                          </div>
+                        )}
+                      </CardHeader>
+                      {exp.summaryMd && (
+                        <CardContent className="prose prose-sm dark:prose-invert max-w-none">
+                          <CustomLexicalReadOnly
+                            initialContent={exp.summaryMd}
+                          />
+                        </CardContent>
+                      )}
+                    </Card>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* Projects Section */}
+            {projects && projects.length > 0 && (
+              <section>
+                <div className="mb-6 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <FolderGit2 className="h-6 w-6" />
+                    <h2 className="text-3xl font-bold">Projets</h2>
+                  </div>
+                  <Link href="/projects">
+                    <Button variant="ghost" size="sm">
+                      Voir tous les projets →
+                    </Button>
+                  </Link>
+                </div>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {projects.slice(0, 4).map((project) => (
+                    <Card
+                      key={project.id}
+                      className="transition-shadow hover:shadow-lg"
+                    >
+                      <CardHeader>
+                        <CardTitle className="text-lg">
+                          {project.name}
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        {project.summaryMd && (
+                          <div className="prose prose-sm dark:prose-invert line-clamp-3 max-w-none">
+                            <CustomLexicalReadOnly
+                              initialContent={project.summaryMd}
+                            />
+                          </div>
+                        )}
+                        <div className="flex gap-2">
+                          <Link href={`/projects/${project.id}`}>
+                            <Button size="sm" variant="default">
+                              Voir plus
+                            </Button>
+                          </Link>
+                          {project.url && (
+                            <Button size="sm" variant="outline" asChild>
+                              <Link href={project.url} target="_blank">
+                                <ExternalLink className="mr-1 h-3 w-3" />
+                                Démo
+                              </Link>
+                            </Button>
+                          )}
+                          {project.repoUrl && (
+                            <Button size="sm" variant="outline" asChild>
+                              <Link href={project.repoUrl} target="_blank">
+                                <FolderGit2 className="mr-1 h-3 w-3" />
+                                Code
+                              </Link>
+                            </Button>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* Skills Section */}
+            {skills && skills.length > 0 && (
+              <section>
+                <div className="mb-6 flex items-center gap-2">
+                  <Code className="h-6 w-6" />
+                  <h2 className="text-3xl font-bold">Compétences</h2>
+                </div>
+                <Card>
+                  <CardContent className="pt-6">
+                    <div className="flex flex-wrap gap-2">
+                      {skills.map((skill) => (
+                        <Badge
+                          key={skill.id}
+                          variant="secondary"
+                          className="text-sm"
+                        >
+                          {skill.name}
+                          {skill.level && ` • ${skill.level}`}
+                        </Badge>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </section>
+            )}
+
+            {/* Education Section */}
+            {educations && educations.length > 0 && (
+              <section>
+                <div className="mb-6 flex items-center gap-2">
+                  <GraduationCap className="h-6 w-6" />
+                  <h2 className="text-3xl font-bold">Formation</h2>
+                </div>
+                <div className="space-y-4">
+                  {educations.map((edu) => (
+                    <Card key={edu.id}>
+                      <CardHeader>
+                        <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                          <div>
+                            <CardTitle className="text-xl">
+                              {edu.school}
+                            </CardTitle>
+                            {edu.degree && (
+                              <CardDescription className="text-base">
+                                {edu.degree}
+                              </CardDescription>
+                            )}
+                          </div>
+                          {(edu.startDate ?? edu.endDate) && (
+                            <div className="text-muted-foreground text-sm">
+                              {edu.startDate &&
+                                new Date(edu.startDate).toLocaleDateString(
+                                  "fr-FR",
+                                  { month: "short", year: "numeric" },
+                                )}
+                              {edu.startDate && edu.endDate && " - "}
+                              {edu.endDate &&
+                                new Date(edu.endDate).toLocaleDateString(
+                                  "fr-FR",
+                                  { month: "short", year: "numeric" },
+                                )}
+                            </div>
+                          )}
+                        </div>
+                      </CardHeader>
+                      {edu.detailsMd && (
+                        <CardContent className="prose prose-sm dark:prose-invert max-w-none">
+                          <CustomLexicalReadOnly
+                            initialContent={edu.detailsMd}
+                          />
+                        </CardContent>
+                      )}
+                    </Card>
+                  ))}
+                </div>
+              </section>
+            )}
+          </div>
         </div>
+
+        {/* Footer */}
+        <footer className="border-t py-8">
+          <div className="text-muted-foreground container mx-auto px-4 text-center text-sm">
+            <p>
+              © {new Date().getFullYear()} {profile?.fullName ?? "Portfolio"}.
+              Tous droits réservés.
+            </p>
+          </div>
+        </footer>
       </main>
     </HydrateClient>
   );
