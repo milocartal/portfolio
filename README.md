@@ -2,7 +2,7 @@
 
 > Une application de portfolio moderne et complète construite avec la **T3 Stack** (TypeScript, Next.js, tRPC, Prisma), permettant de gérer et présenter de manière professionnelle profils, expériences, formations, compétences et projets.
 
-[![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)](https://nextjs.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-16-yellow?logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.8-blue?logo=typescript)](https://www.typescriptlang.org/)
 [![tRPC](https://img.shields.io/badge/tRPC-11-2596be?logo=trpc)](https://trpc.io/)
 [![Prisma](https://img.shields.io/badge/Prisma-6-2D3748?logo=prisma)](https://www.prisma.io/)
@@ -154,7 +154,6 @@ pnpm dev
 📖 **Pour plus de détails** : Consultez le [Guide de développement complet](./src/app/docs/development.md)
 
 ## 📁 Structure du projet
-## 📁 Structure du projet
 
 ```text
 portfolio/
@@ -179,6 +178,8 @@ portfolio/
 │   ├── lib/                      # Modèles et utilitaires
 │   ├── utils/                    # Helpers métier
 │   └── trpc/                     # Configuration client tRPC
+```
+
 ## 🎯 Fonctionnement
 
 ### 🌐 Interface publique
@@ -199,16 +200,13 @@ Accessible via `/admin` (authentification requise avec rôle `admin`) :
 | 🚀 **Projets** | Portfolio de réalisations |
 | 👥 **Utilisateurs** | Gestion des accès et rôles |
 
-### 📄 Système de CV
+### 📄 Système de CV (en développement)
 
 - Sélection des éléments à inclure
 - Personnalisation de l'ordre des sections
 - Choix du thème de présentation
 - Export et partage
 
-## 🔑 Rôles et permissions
-
-| Rôle | Permissions |
 ## 📜 Commandes disponibles
 
 ### Développement
@@ -237,140 +235,6 @@ pnpm lint               # Vérifier les erreurs de lint
 pnpm lint:fix           # Corriger automatiquement
 pnpm format:check       # Vérifier le formatage
 pnpm format:write       # Formater le code
-## 🚀 Déploiement
-
-### Vercel (recommandé)
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/milocartal/portfolio)
-
-1. **Connecter** le repository GitHub à Vercel
-2. **Configurer** les variables d'environnement :
-   ```env
-   DATABASE_URL="postgresql://..."
-   AUTH_SECRET="généré-avec-openssl-rand-base64-32"
-   NEXTAUTH_URL="https://votre-domaine.com"
-   NODE_ENV="production"
-   ```
-3. **Déployer** automatiquement
-
-### Docker
-
-```bash
-# Construire l'image
-docker build -t portfolio .
-
-# Lancer le conteneur
-docker run -p 3000:3000 \
-  -e DATABASE_URL="postgresql://..." \
-  -e AUTH_SECRET="..." \
-## 🛠️ Technologies clés
-
-<table>
-<tr>
-<td valign="top" width="50%">
-
-### Frontend
-- **Next.js 15** - Framework React avec App Router
-- **TypeScript** - Typage statique
-- **Tailwind CSS 4** - Styling utility-first
-- **Radix UI** - Composants primitifs accessibles
-- **Lexical** - Éditeur de texte riche
-
-</td>
-<td valign="top" width="50%">
-
-### Backend
-- **tRPC** - API type-safe end-to-end
-- **Prisma** - ORM pour PostgreSQL
-- **NextAuth.js** - Authentification
-- **AccessControl** - Gestion des permissions
-- **Argon2** - Hachage sécurisé
-
-</td>
-</tr>
-</table>
-
-## 🤝 Contribution
-
-Les contributions sont bienvenues ! Pour contribuer :
-
-1. **Fork** le projet
-2. **Créer** une branche feature (`git checkout -b feature/ma-feature`)
-3. **Commiter** avec des messages clairs (`git commit -m 'feat: ajouter fonctionnalité'`)
-4. **Pousser** vers la branche (`git push origin feature/ma-feature`)
-## 🐛 Problèmes connus & Support
-
-### Résolution de problèmes courants
-
-| Problème | Solution |
-|----------|----------|
-| Module not found | `rm -rf node_modules .next && pnpm install` |
-| Erreur Prisma Client | `pnpm db:generate` |
-| Port 3000 occupé | `lsof -i :3000` puis `kill -9 <PID>` |
-| DB inaccessible | Vérifier que PostgreSQL est démarré |
-
-### Obtenir de l'aide
-
-- 📖 [Documentation complète](./src/app/docs/README.md)
-- 🐛 [Ouvrir une issue](https://github.com/milocartal/portfolio/issues)
-- 💬 [T3 Stack Discord](https://t3.gg/discord)
-- 📧 Contact : milo.cartal.pro@gmail.com
-
-## 📚 Ressources
-
-### Documentation du projet
-- [📖 Documentation complète](./src/app/docs/README.md)
-- [🏗️ Architecture](./src/app/docs/architecture.md)
-- [🗄️ Base de données](./src/app/docs/database.md)
-- [🔐 Authentification](./src/app/docs/authentication.md)
-
-### Ressources externes
-- [T3 Stack](https://create.t3.gg/)
-- [Next.js Documentation](https://nextjs.org/docs)
-- [tRPC Documentation](https://trpc.io/docs)
-- [Prisma Documentation](https://www.prisma.io/docs)
-
-## 🙏 Remerciements
-
-Ce projet est construit avec la [T3 Stack](https://create.t3.gg/) et utilise de nombreuses technologies open source exceptionnelles. Merci à tous les mainteneurs et contributeurs !
-
----
-
-<div align="center">
-
-**Développé avec ❤️ par [Milo Cartal](https://github.com/milocartal)**
-
-[⭐ Star sur GitHub](https://github.com/milocartal/portfolio) · [🐛 Reporter un bug](https://github.com/milocartal/portfolio/issues) · [💡 Proposer une feature](https://github.com/milocartal/portfolio/issues)
-
-</div>
-- `refactor:` - Refactorisation
-- `test:` - Tests
-- `chore:` - Tâches diverses
-
-> 📖 **Voir** : [Guide de contribution](./src/app/docs/development.md#-contribution) pour plus de détails
-- Render
-- AWS (ECS, Amplify)
-- Google Cloud Run
-
-> 📖 **Voir** : [Guide de déploiement complet](./src/app/docs/deployment.md) avec instructions détailléesDéployer automatiquement
-
-### Docker
-
-```bash
-# Construire l'image
-docker build -t portfolio .
-
-# Lancer le conteneur
-docker run -p 3000:3000 portfolio
-```
-
-### Variables d'environnement de production
-
-```env
-DATABASE_URL="your-production-database-url"
-AUTH_SECRET="your-production-secret"
-NEXTAUTH_URL="https://your-domain.com"
-NODE_ENV="production"
 ```
 
 ## 🤝 Contribution
