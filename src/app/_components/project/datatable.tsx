@@ -78,7 +78,7 @@ const ProjectActionDataTableCell: React.FC<{
             <FilePen className="h-4 w-4" />
           </Link>
         </TooltipTrigger>
-        <TooltipContent className="text-primary">Modifier</TooltipContent>
+        <TooltipContent>Modifier</TooltipContent>
       </Tooltip>
 
       <Tooltip>

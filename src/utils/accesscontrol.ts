@@ -46,7 +46,11 @@ ac.grant("admin")
 
   .createAny("link")
   .updateAny("link")
-  .deleteAny("link");
+  .deleteAny("link")
+
+  .createAny("cv")
+  .updateAny("cv")
+  .deleteAny("cv");
 
 /**
  * Determines the access control query based on the user's session role.

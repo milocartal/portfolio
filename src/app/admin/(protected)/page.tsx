@@ -203,6 +203,15 @@ export default async function AdminDashboard() {
                     Nouvelle formation
                   </Button>
                 </Link>
+                <Link href="/admin/cvs/new">
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start gap-2"
+                  >
+                    <Plus className="h-4 w-4" />
+                    Nouvelle version de CV
+                  </Button>
+                </Link>
                 <Separator />
                 <Link href="/admin/profile">
                   <Button

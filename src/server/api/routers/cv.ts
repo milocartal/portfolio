@@ -61,15 +61,18 @@ export const cvRouter = createTRPCRouter({
 
     const cv = await db.cvVersion.create({
       data: {
-        ...input,
+        title: input.title,
+        slug: input.slug,
+        theme: input.theme,
+        sectionOrder: input.sectionOrder,
       },
     });
 
-    if (input.educationsIds.length > 0) {
-      await db.cvVersionEducation.createMany({
-        data: input.educationsIds.map((educationId) => ({
+    if (input.experiencesIds.length > 0) {
+      await db.cvVersionExperience.createMany({
+        data: input.experiencesIds.map((experienceId) => ({
           cvId: cv.id,
-          educationId,
+          experienceId,
         })),
       });
     }
@@ -119,56 +122,57 @@ export const cvRouter = createTRPCRouter({
         });
       }
       const { id, ...data } = input;
-      const cv = db.cvVersion.update({
+
+      // Supprimer les relations existantes
+      await db.cvVersionExperience.deleteMany({ where: { cvId: id } });
+      await db.cvVersionProject.deleteMany({ where: { cvId: id } });
+      await db.cvVersionSkill.deleteMany({ where: { cvId: id } });
+      await db.cvVersionEducation.deleteMany({ where: { cvId: id } });
+
+      // Mettre à jour le CV
+      const cv = await db.cvVersion.update({
         where: { id },
         data: {
           ...data,
-          Experiences: {
-            deleteMany: {
-              cvId: id,
-            },
-            createMany: {
-              data: input.experiencesIds.map((experienceId) => ({
-                cvId: id,
-                experienceId,
-              })),
-            },
-          },
-          Projects: {
-            deleteMany: {
-              cvId: id,
-            },
-            createMany: {
-              data: input.projectsIds.map((projectId) => ({
-                cvId: id,
-                projectId,
-              })),
-            },
-          },
-          Skills: {
-            deleteMany: {
-              cvId: id,
-            },
-            createMany: {
-              data: input.skillsIds.map((skillId) => ({
-                cvId: id,
-                skillId,
-              })),
-            },
-          },
-          Educations: {
-            deleteMany: {
-              cvId: id,
-            },
-            createMany: {
-              data: input.educationsIds.map((educationId) => ({
-                cvId: id,
-                educationId,
-              })),
-            },
-          },
         },
       });
+
+      // Créer les nouvelles relations
+      if (input.experiencesIds.length > 0) {
+        await db.cvVersionExperience.createMany({
+          data: input.experiencesIds.map((experienceId) => ({
+            cvId: id,
+            experienceId,
+          })),
+        });
+      }
+
+      if (input.projectsIds.length > 0) {
+        await db.cvVersionProject.createMany({
+          data: input.projectsIds.map((projectId) => ({
+            cvId: id,
+            projectId,
+          })),
+        });
+      }
+
+      if (input.skillsIds.length > 0) {
+        await db.cvVersionSkill.createMany({
+          data: input.skillsIds.map((skillId) => ({
+            cvId: id,
+            skillId,
+          })),
+        });
+      }
+
+      if (input.educationsIds.length > 0) {
+        await db.cvVersionEducation.createMany({
+          data: input.educationsIds.map((educationId) => ({
+            cvId: id,
+            educationId,
+          })),
+        });
+      }
 
       return cv;
     }),

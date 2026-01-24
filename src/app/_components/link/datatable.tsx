@@ -157,7 +157,7 @@ const columns: ColumnDef<Link>[] = [
                   <FilePen className="h-4 w-4" />
                 </ShadLink>
               </TooltipTrigger>
-              <TooltipContent className="text-primary">Modifier</TooltipContent>
+              <TooltipContent>Modifier</TooltipContent>
             </Tooltip>
 
             <Tooltip>

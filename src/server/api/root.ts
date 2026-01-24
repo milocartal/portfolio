@@ -1,4 +1,5 @@
 import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
+import { cvRouter } from "~/server/api/routers/cv";
 import { educationRouter } from "~/server/api/routers/education";
 import { experienceRouter } from "~/server/api/routers/experience";
 import { linkRouter } from "~/server/api/routers/link";
@@ -13,6 +14,7 @@ import { userRouter } from "~/server/api/routers/user";
  * All routers added in /api/routers should be manually added here.
  */
 export const appRouter = createTRPCRouter({
+  cv: cvRouter,
   education: educationRouter,
   experience: experienceRouter,
   link: linkRouter,
