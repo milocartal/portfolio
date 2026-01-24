@@ -16,7 +16,7 @@ export const cvSchema = z.object({
         "Le slug ne peut contenir que des lettres minuscules, chiffres et tirets",
     }),
 
-  theme: z.string().optional().default("modern"),
+  theme: z.string().optional(),
 
   sectionOrder: z
     .string({ required_error: "L'ordre des sections est requis" })
