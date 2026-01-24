@@ -32,6 +32,7 @@ import { FilePen, Trash2 } from "lucide-react";
 
 import { Button } from "~/app/_components/ui/button";
 import { Link } from "~/app/_components/ui/link";
+import Image from "next/image";
 
 interface ProjectDataTableProps {
   data: ProjectWithSkills[];
@@ -154,7 +155,7 @@ const columns: ColumnDef<ProjectWithSkills>[] = [
       const picture = data.getValue() as string | null;
       return picture ? (
         <div className="h-12 w-16 overflow-hidden rounded">
-          <img
+          <Image
             src={picture}
             alt="Project"
             className="h-full w-full object-cover"

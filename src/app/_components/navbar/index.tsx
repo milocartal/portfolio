@@ -15,6 +15,7 @@ import {
   Origami,
   ScrollText,
   UsersRound,
+  Link as LinkIcon,
 } from "lucide-react";
 
 import { cn } from "~/lib/utils";
@@ -83,6 +84,11 @@ const links: ExclusiveNavLink[][] = [
       title: "Projets",
       href: "/admin/projects",
       icon: Origami,
+    },
+    {
+      title: "Liens",
+      href: "/admin/links",
+      icon: LinkIcon,
     },
     {
       title: "CVs",

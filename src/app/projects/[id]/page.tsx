@@ -17,6 +17,7 @@ import { Separator } from "~/app/_components/ui/separator";
 import { CustomLexicalReadOnly } from "~/app/_components/lexical/display";
 import type { ProjectWithSkills } from "~/lib/models/Project";
 import { generateProjectSchema } from "~/lib/structured-data";
+import Image from "next/image";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -171,7 +172,7 @@ export default async function ProjectDetailPage({ params }: Props) {
             {project.picture && (
               <Card className="overflow-hidden">
                 <div className="aspect-video w-full">
-                  <img
+                  <Image
                     src={project.picture}
                     alt={project.name}
                     className="h-full w-full object-cover"

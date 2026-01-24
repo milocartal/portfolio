@@ -27,18 +27,20 @@ import {
   generateWebsiteSchema,
   generatePortfolioSchema,
 } from "~/lib/structured-data";
+import Image from "next/image";
 
 export default async function Home() {
   const session = await auth();
 
   // Récupérer toutes les données
-  const [profile, experiences, educations, skills, projects] =
+  const [profile, experiences, educations, skills, projects, links] =
     await Promise.all([
       api.profile.get(),
       api.experience.getAll(),
       api.education.getAll(),
       api.skill.getAll(),
       api.project.getAll(),
+      api.link.getAll(),
     ]);
 
   // Générer les structured data pour le SEO
@@ -121,9 +123,38 @@ export default async function Home() {
                 )}
               </div>
 
+              {/* Links Section */}
+              {links && links.length > 0 && (
+                <div className="flex flex-wrap items-center justify-center gap-3">
+                  {links.map((link) => (
+                    <Button key={link.id} variant="outline" size="sm" asChild>
+                      <Link
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2"
+                      >
+                        {link.icon && (
+                          <Image
+                            src={link.icon}
+                            alt={link.name}
+                            className="h-4 w-4"
+                            loading="lazy"
+                            width={16}
+                            height={16}
+                          />
+                        )}
+                        <span>{link.name}</span>
+                        <ExternalLink className="h-3 w-3" />
+                      </Link>
+                    </Button>
+                  ))}
+                </div>
+              )}
+
               {/* Admin Link */}
               {session?.user.role === "admin" && (
-                <div className="flex justify-center gap-2">
+                <div className="mt-6 flex justify-center">
                   <Button asChild>
                     <Link href="/admin">Accéder à l&apos;administration</Link>
                   </Button>
@@ -237,10 +268,12 @@ export default async function Home() {
                     >
                       {project.picture && (
                         <div className="aspect-video w-full overflow-hidden rounded-t-lg">
-                          <img
+                          <Image
                             src={project.picture}
                             alt={project.name}
                             className="h-full w-full object-cover transition-transform hover:scale-105"
+                            width={640}
+                            height={360}
                           />
                         </div>
                       )}

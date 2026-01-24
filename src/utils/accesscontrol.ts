@@ -12,7 +12,8 @@ ac.grant("viewer")
   .readAny("experience")
   .readAny("project")
   .readAny("skill")
-  .readAny("profile");
+  .readAny("profile")
+  .readAny("link");
 
 //Admin
 ac.grant("admin")
@@ -41,7 +42,11 @@ ac.grant("admin")
 
   .createAny("profile")
   .updateAny("profile")
-  .deleteAny("profile");
+  .deleteAny("profile")
+
+  .createAny("link")
+  .updateAny("link")
+  .deleteAny("link");
 
 /**
  * Determines the access control query based on the user's session role.
