@@ -12,7 +12,7 @@ import {
 
 export default function AdminForbidden() {
   return (
-    <main className="from-background to-muted flex min-h-screen items-center justify-center bg-gradient-to-br p-4">
+    <main className="from-background to-muted flex min-h-screen w-full items-center justify-center bg-gradient-to-br p-4">
       <Card className="w-full max-w-lg border-2 shadow-xl">
         <CardHeader className="text-center">
           <div className="bg-destructive/10 mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full">

@@ -12,7 +12,7 @@ import {
 
 export default function NotFound() {
   return (
-    <main className="from-background to-muted flex min-h-screen items-center justify-center bg-gradient-to-br p-4">
+    <main className="from-background to-muted flex min-h-screen w-full items-center justify-center bg-gradient-to-br p-4">
       <div className="bg-grid-white/[0.02] absolute inset-0 bg-[size:50px_50px]" />
 
       <Card className="relative z-10 w-full max-w-lg border-2 shadow-xl">

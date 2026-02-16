@@ -27,6 +27,7 @@ import { Badge } from "~/app/_components/ui/badge";
 import { Separator } from "~/app/_components/ui/separator";
 import { CustomLexicalReadOnly } from "~/app/_components/lexical/display";
 import { db } from "~/server/db";
+import { Footer } from "~/app/_components/footer";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -404,14 +405,7 @@ export default async function CvPage({ params }: Props) {
         </div>
 
         {/* Footer */}
-        <footer className="mt-16 border-t pt-8">
-          <div className="text-muted-foreground text-center text-sm">
-            <p>
-              © {new Date().getFullYear()} {profile?.fullName ?? "Portfolio"}.
-              Tous droits réservés.
-            </p>
-          </div>
-        </footer>
+        <Footer name={profile?.fullName} />
       </div>
     </main>
   );

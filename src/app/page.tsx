@@ -28,13 +28,14 @@ import {
   generatePortfolioSchema,
 } from "~/lib/structured-data";
 import Image from "next/image";
-import { db } from "~/server/db";
+
+import { Footer } from "~/app/_components/footer";
 
 export default async function Home() {
   const session = await auth();
 
   // Récupérer toutes les données
-  const [profile, experiences, educations, skills, projects, links, cvCount] =
+  const [profile, experiences, educations, skills, projects, links] =
     await Promise.all([
       api.profile.get(),
       api.experience.getAll(),
@@ -42,7 +43,6 @@ export default async function Home() {
       api.skill.getAll(),
       api.project.getAll(),
       api.link.getAll(),
-      db.cvVersion.count(),
     ]);
 
   // Générer les structured data pour le SEO
@@ -411,25 +411,7 @@ export default async function Home() {
         </div>
 
         {/* Footer */}
-        <footer className="border-t py-8">
-          <div className="container mx-auto px-4">
-            {cvCount > 0 && (
-              <div className="mb-4 text-center">
-                <Link href="/cv">
-                  <Button variant="ghost" size="sm">
-                    Consulter mes CV →
-                  </Button>
-                </Link>
-              </div>
-            )}
-            <div className="text-muted-foreground text-center text-sm">
-              <p>
-                © {new Date().getFullYear()} {profile?.fullName ?? "Portfolio"}
-                . Tous droits réservés.
-              </p>
-            </div>
-          </div>
-        </footer>
+        <Footer name={profile?.fullName} />
       </main>
     </HydrateClient>
   );
