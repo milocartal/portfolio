@@ -14,15 +14,15 @@ import { Badge } from "~/app/_components/ui/badge";
 import { env } from "~/env";
 
 export const metadata: Metadata = {
-  title: "Mentions legales",
-  description: "Informations legales et credits du site.",
+  title: "Mentions légales",
+  description: "Informations légales et crédits du site.",
 };
 
 export default async function LegalNoticePage() {
   const profile = await api.profile.get().catch(() => null);
   const fullName = profile?.fullName ?? "Portfolio";
-  const email = profile?.email ?? "non communiquee";
-  const location = profile?.location ?? "non communiquee";
+  const email = profile?.email ?? "non communiqué";
+  const location = profile?.location ?? "non communiqué";
   const website = profile?.website ?? env.NEXT_PUBLIC_APP_URL;
 
   return (
@@ -30,20 +30,20 @@ export default async function LegalNoticePage() {
       <div className="container mx-auto px-4 py-8 md:py-12">
         <Link href="/">
           <Button variant="ghost" size="sm" className="mb-4">
-            Retour a l&apos;accueil
+            Retour à l&apos;accueil
           </Button>
         </Link>
 
         <div className="mx-auto max-w-3xl space-y-6">
           <header className="space-y-3">
             <h1 className="text-4xl font-bold tracking-tight">
-              Mentions legales
+              Mentions légales
             </h1>
             <p className="text-muted-foreground">
-              Informations legales et credits du site.
+              Informations légales et crédits du site.
             </p>
             <Badge variant="secondary">
-              Derniere mise a jour : 16 fevrier 2026
+              Dernière mise à jour : 16 février 2026
             </Badge>
           </header>
 
@@ -86,8 +86,8 @@ export default async function LegalNoticePage() {
               <CardTitle>Hebergement</CardTitle>
             </CardHeader>
             <CardContent className="text-sm">
-              Hebergeur : a completer (ex. Vercel, OVH, AWS). Merci de remplacer
-              cette ligne par les informations exactes.
+              Hébergeur : QuantumCraft Studios SAS <br />
+              58 rue de Monceau CS 48756, 75380 Paris CEDEX
             </CardContent>
           </Card>
 
@@ -97,8 +97,8 @@ export default async function LegalNoticePage() {
             </CardHeader>
             <CardContent className="text-sm leading-relaxed">
               L&apos;ensemble des contenus (textes, images, logos, code, etc.)
-              est protege par le droit d&apos;auteur. Toute reproduction,
-              modification ou reutilisation sans autorisation est interdite.
+              est protégé par le droit d&apos;auteur. Toute reproduction,
+              modification ou réutilisation sans autorisation est interdite.
             </CardContent>
           </Card>
 
@@ -107,9 +107,9 @@ export default async function LegalNoticePage() {
               <CardTitle>Responsabilite</CardTitle>
             </CardHeader>
             <CardContent className="text-sm leading-relaxed">
-              Les informations presentees sur ce site sont fournies a titre
-              indicatif. Malgre le soin apporte, l&apos;editeur ne peut garantir
-              l&apos;exactitude ou l&apos;exhaustivite des contenus.
+              Les informations présentées sur ce site sont fournies à titre
+              indicatif. Malgré le soin apporté, l&apos;éditeur ne peut garantir
+              l&apos;exactitude ou l&apos;exhaustivité des contenus.
             </CardContent>
           </Card>
 
@@ -118,7 +118,7 @@ export default async function LegalNoticePage() {
               <CardTitle>Contact</CardTitle>
             </CardHeader>
             <CardContent className="text-sm">
-              Pour toute question, vous pouvez ecrire a : {email}.
+              Pour toute question, vous pouvez écrire a : {email}.
             </CardContent>
           </Card>
         </div>

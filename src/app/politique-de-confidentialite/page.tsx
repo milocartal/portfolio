@@ -12,8 +12,8 @@ import {
 import { Badge } from "~/app/_components/ui/badge";
 
 export const metadata: Metadata = {
-  title: "Politique de confidentialite",
-  description: "Politique de confidentialite et protection des donnees.",
+  title: "Politique de confidentialité",
+  description: "Politique de confidentialité et protection des données.",
 };
 
 export default async function PrivacyPolicyPage() {
@@ -33,10 +33,10 @@ export default async function PrivacyPolicyPage() {
         <div className="mx-auto max-w-3xl space-y-6">
           <header className="space-y-3">
             <h1 className="text-4xl font-bold tracking-tight">
-              Politique de confidentialite
+              Politique de confidentialité
             </h1>
             <p className="text-muted-foreground">
-              Politique de confidentialite et protection des donnees.
+              Politique de confidentialité et protection des données.
             </p>
             <Badge variant="secondary">
               Derniere mise a jour : 16 fevrier 2026
@@ -52,12 +52,12 @@ export default async function PrivacyPolicyPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Donnees collectees</CardTitle>
+              <CardTitle>Données collectées</CardTitle>
             </CardHeader>
             <CardContent className="text-sm leading-relaxed">
-              Ce site ne collecte que les donnees strictement necessaires a son
-              fonctionnement. Cela peut inclure des donnees techniques (logs,
-              adresse IP, navigateur) et, le cas echeant, des informations de
+              Ce site ne collecte que les données strictement nécessaires à son
+              fonctionnement. Cela peut inclure des données techniques (logs,
+              adresse IP, navigateur) et, le cas échéant, des informations de
               compte pour l&apos;espace d&apos;administration.
             </CardContent>
           </Card>
@@ -68,11 +68,11 @@ export default async function PrivacyPolicyPage() {
             </CardHeader>
             <CardContent className="text-sm">
               <ul className="list-disc space-y-1 pl-5">
-                <li>Assurer le fonctionnement et la securite du site.</li>
-                <li>Administrer le contenu via l&apos;espace prive.</li>
+                <li>Assurer le fonctionnement et la sécurité du site.</li>
+                <li>Administrer le contenu via l&apos;espace privé.</li>
                 <li>
-                  Ameliorer le site en cas d&apos;analyse d&apos;audience
-                  activee.
+                  Améliorer le site en cas d&apos;analyse d&apos;audience
+                  activée.
                 </li>
               </ul>
             </CardContent>
@@ -83,9 +83,9 @@ export default async function PrivacyPolicyPage() {
               <CardTitle>Base legale</CardTitle>
             </CardHeader>
             <CardContent className="text-sm leading-relaxed">
-              Le traitement repose sur l&apos;interet legitime de l&apos;editeur
-              a securiser et administrer le site, et sur le consentement lorsque
-              des cookies non essentiels sont utilises.
+              Le traitement repose sur l&apos;intérêt légitime de l&apos;éditeur
+              à sécuriser et administrer le site, et sur le consentement lorsque
+              des cookies non essentiels sont utilisés.
             </CardContent>
           </Card>
 
@@ -94,9 +94,9 @@ export default async function PrivacyPolicyPage() {
               <CardTitle>Conservation</CardTitle>
             </CardHeader>
             <CardContent className="text-sm leading-relaxed">
-              Les donnees sont conservees le temps necessaire aux finalites
-              indiquees et supprimees ou anonymisees ensuite, sauf obligation
-              legale contraire.
+              Les données sont conservées le temps nécessaire aux finalités
+              indiquées et supprimées ou anonymisées ensuite, sauf obligation
+              légale contraire.
             </CardContent>
           </Card>
 
@@ -105,7 +105,7 @@ export default async function PrivacyPolicyPage() {
               <CardTitle>Destinataires</CardTitle>
             </CardHeader>
             <CardContent className="text-sm leading-relaxed">
-              Les donnees sont accessibles uniquement par l&apos;editeur et ses
+              Les données sont accessibles uniquement par l&apos;éditeur et ses
               prestataires techniques, lorsque cela est indispensable.
             </CardContent>
           </Card>
@@ -115,10 +115,10 @@ export default async function PrivacyPolicyPage() {
               <CardTitle>Cookies</CardTitle>
             </CardHeader>
             <CardContent className="text-sm leading-relaxed">
-              Des cookies techniques peuvent etre utilises pour maintenir la
-              session d&apos;administration et assurer la securite du site. Les
-              cookies de mesure d&apos;audience ne sont actives que si
-              configurees.
+              Des cookies techniques peuvent être utilisés pour maintenir la
+              session d&apos;administration et assurer la sécurité du site. Les
+              cookies de mesure d&apos;audience ne sont activés que si
+              configurés.
             </CardContent>
           </Card>
 
